@@ -1,23 +1,16 @@
-/**
- Copyright (C) 2022.
- Licensed under the  GPL-3.0 License;
- You may not use this file except in compliance with the License.
- It is supplied in the hope that it may be useful.
- * @project_name : Secktor-Md
- * @author : SamPandey001 <https://github.com/SamPandey001>
- * @description : Secktor,A Multi-functional whatsapp bot.
- * @version 0.0.6
- **/
+const {
+	y2mate,
+	bot,
+	getBuffer,
+	genButtonMessage,
+	addAudioMetaData,
+	yts,
+} = require('../lib/')
+const ytIdRegex =
+	/(?:http(?:s|):\/\/|)(?:(?:www\.|)youtube(?:\-nocookie|)\.com\/(?:watch\?.*(?:|\&)v=|embed|shorts\/|v\/)|youtu\.be\/)([-_0-9A-Za-z]{11})/
 
-const { tlang, ringtone, cmd,fetchJson, sleep, botpic,ffmpeg, getBuffer, pinterest, prefix, Config } = require('../lib')
-const { mediafire } = require("../lib/mediafire.js");
-const googleTTS = require("google-tts-api");
-const ytdl = require('ytdl-secktor')
-const fs = require('fs-extra')
-var videotime = 60000 // 1000 min
-var dlsize = 1000 // 1000mb
-    //---------------------------------------------------------------------------
-cmd({
+cmd(
+	{
 		pattern: 'ytv ?(.*)',
 		fromMe: true,
 		desc: 'Download youtube video',
@@ -57,33 +50,6 @@ cmd({
 			),
 			{},
 			'button'
-		)
-	}
-)
-
-cmd({
-		pattern: 'yta ?(.*)',
-		fromMe: true,
-		desc: 'Download youtube audio',
-		type: 'download',
-	},
-	async (message, match) => {
-		match = match || message.reply_message.text
-		if (!match) return await message.send('_Example : yta darari/yt url_')
-		const vid = ytIdRegex.exec(match)
-		if (vid) match = vid[1]
-		const [video] = await yts(match, !!vid)
-		const { title, thumbnail, id } = video
-		const audio = await y2mate.get(id)
-		const result = await y2mate.dl(id, 'audio')
-		if (!result)
-			return await message.send(`_not found._`, { quoted: message.data })
-		const { buffer } = await getBuffer(result)
-		if (!buffer) return await message.send(result, { quoted: message.data })
-		return await message.send(
-			await addAudioMetaData(buffer, title, '', '', thumbnail),
-			{ quoted: message.data, mimetype: 'audio/mpeg' },
-			'audio'
 		)
 	}
 )

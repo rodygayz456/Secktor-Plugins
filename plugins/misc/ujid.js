@@ -1,27 +1,3 @@
-/**
- Copyright (C) 2022.
- Licensed under the  GPL-3.0 License;
- You may not use this file except in compliance with the License.
- It is supplied in the hope that it may be useful.
- * @project_name : Secktor-Md
- * @author : SamPandey001 <https://github.com/SamPandey001>
- * @description : Secktor,A Multi-functional whatsapp bot.
- * @version 0.0.6
- **/
-const ytdl = require('ytdl-secktor')
-var videotime = 60000 // 1000 min
-var dlsize = 1000 // 1000mb
-const {
-	y2mate,
-	bot,
-	getBuffer,
-	genButtonMessage,
-	addAudioMetaData,
-	yts,
-} = require('../lib/')
-const ytIdRegex =
-	/(?:http(?:s|):\/\/|)(?:(?:www\.|)youtube(?:\-nocookie|)\.com\/(?:watch\?.*(?:|\&)v=|embed|shorts\/|v\/)|youtu\.be\/)([-_0-9A-Za-z]{11})/
-
 cmd(
 	{
 		pattern: 'ytv ?(.*)',
